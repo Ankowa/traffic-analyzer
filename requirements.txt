@@ -1,0 +1,2 @@
+nmap
+launching the programm as an administrator
