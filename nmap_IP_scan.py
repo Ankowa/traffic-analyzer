@@ -14,5 +14,5 @@ output_scan.write(scanned_network)		#wpisywanie do pliku zawartosci scanned_netw
 #zapisanie ich do pliku *.txt
 #funkcja, przypisujaca nazwe (nazwisko itp) danemu IP+MAC poprzez stringi podawane przez uzytkownika:
 #za uzyciem pliku txt, w ktorym zapisane sa IP+MAC
-#wpisujace je do listy (tablicy?) (tupli?)
+#wpisujace je do listy (tablicy?) (tupli?) (słownika?)
 #THE END (na razie)
