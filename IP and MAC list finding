@@ -1,0 +1,110 @@
+import os
+def prepare(text):		#zauwazylem, ze istnieje mozliwosc podawania IP przez nmapa w nawiasach
+	text=text.replace("(", "").replace(")", "")			#ta funkcja je usuwa
+	return text
+input_file=open('scan.txt',"r+")	#otwieramy plik z logami ze skanu
+work_file=open('roboczy.txt',"w+")		#tworzymy plik roboczy (bedzie on pozniej uzyteczny)
+output_file=open('IPs+MACs.txt', "w+")		#tworzymy plik, w ktorym umieszczoe zastana adresy IP i MAC
+in_lines=input_file.readlines()		#pobieramy dane z pliku scan.txt
+input_file.close()		#zamykamy ten plik
+i=1
+for line in in_lines:
+	if(i>2 and i%3!=1):		#petla zapisuje tylko te linie, w ktorych znajduje sie adres IP lub MAC w pliku roboczym
+		work_file.write(line)
+	i+=1
+i=1
+work_file.close()
+work_file=open('roboczy.txt',"r+")		#jest to konieczne, gdzyz bez tego wystepuja bledy (powod nierozpoznany przeze mnie)
+work_lines=work_file.readlines()		#pobieramy dane z pliku roboczego
+work_file.close()		#zamykamy plik
+for line in work_lines:	
+	words=line.split()
+	if(i%2==1):
+		output_file.write(prepare(words[-1])+"\t")
+	else:		#nalezy zauwazyc, ze IP i MAC sa zapisane w tym samym miejscu w linijkach tej samej paprzystosci
+				#IP jest w nieparzystych linijkach jako ostatnie "slowo", a MAC- w parzystych jako 3 slowo
+		output_file.write(prepare(words[2])+"\n")		#petla zapisuje nam te dane do pliku IPs+MACs.txt
+	i+=1
+output_file.close()		#powyzszy plik jest zamykany
+os.remove('roboczy.txt')		#plik roboczy jest usuwany
+#
+#
+#
+#
+#
+#
+"""
+Przykladowa zawartosc pliku IPs+MACs.txt
+158.75.50.1	00:04:75:C7:5C:3D
+158.75.50.3	00:16:E0:2D:25:21
+158.75.50.37	A0:1D:48:72:EA:21
+158.75.50.38	14:DD:A9:01:BB:5F
+158.75.50.43	E8:03:9A:E8:EE:3A
+158.75.50.47	30:65:EC:73:1F:A4
+158.75.50.48	D0:BF:9C:12:7D:97
+158.75.50.50	AC:87:A3:2A:04:D1
+158.75.50.53	44:8A:5B:CD:B4:DA
+158.75.50.60	A4:5D:36:C9:6D:D3
+158.75.50.61	0C:54:A5:11:C1:DD
+158.75.50.62	0C:8B:FD:D4:70:ED
+158.75.50.64	1C:39:47:B3:A0:51
+158.75.50.65	68:F7:28:BF:05:E1
+158.75.50.66	C8:5B:76:15:6A:82
+158.75.50.70	74:D0:2B:12:A9:96
+158.75.50.73	44:8A:5B:42:1F:D3
+158.75.50.74	14:DD:A9:22:C6:F9
+158.75.50.76	00:00:00:00:00:A1
+158.75.50.80	38:2C:4A:B5:03:F7
+158.75.50.81	C4:54:44:9F:EF:B0
+158.75.50.84	DC:0E:A1:AA:5A:75
+158.75.50.85	6C:3B:E5:F2:A1:EA
+158.75.50.91	1C:B7:2C:92:18:42
+158.75.50.92	1C:83:41:0F:DD:34
+158.75.50.93	B8:88:E3:62:13:79
+158.75.50.97	68:F7:28:2A:BE:EC
+158.75.50.100	50:7B:9D:8E:FE:90
+158.75.50.103	50:7B:9D:94:DD:96
+158.75.50.107	28:D2:44:A0:42:C7
+158.75.50.110	20:1A:06:8F:1F:E7
+158.75.50.114	08:62:66:02:42:03
+158.75.50.115	F0:DE:F1:C1:92:0C
+158.75.50.116	68:B5:99:EF:3C:B6
+158.75.50.120	00:22:68:1B:11:D1
+158.75.50.126	48:5B:39:E6:C2:73
+158.75.50.127	78:84:3C:CE:C3:6E
+158.75.50.133	C8:5B:76:08:CB:7C
+158.75.50.138	BC:AE:C5:D5:2D:BF
+158.75.50.139	0C:54:A5:11:C1:DD
+158.75.50.143	00:24:D7:6D:5A:5C
+158.75.50.146	1C:83:41:10:CA:FE
+158.75.50.148	F0:76:1C:51:59:9A
+158.75.50.150	00:12:2A:53:40:70
+158.75.50.152	04:7D:7B:97:04:C7
+158.75.50.153	20:1A:06:2D:02:CA
+158.75.50.157	20:89:84:11:65:7C
+158.75.50.164	34:97:F6:71:3B:50
+158.75.50.170	20:89:84:12:5E:E8
+158.75.50.171	20:47:47:75:1F:C9
+158.75.50.174	F8:A9:63:4D:A8:49
+158.75.50.177	EC:F4:BB:99:CF:00
+158.75.50.180	54:AB:3A:A7:3D:CA
+158.75.50.192	FC:AA:14:18:78:74
+158.75.50.193	E8:11:32:C8:D4:09
+158.75.50.194	68:F7:28:36:D2:4D
+158.75.50.196	38:2C:4A:2B:30:0D
+158.75.50.202	28:D2:44:66:08:EF
+158.75.50.204	0C:54:A5:14:C8:F0
+158.75.50.206	A0:1D:48:AC:8D:80
+158.75.50.212	2C:60:0C:9A:97:29
+158.75.50.217	40:16:7E:21:6A:9F
+158.75.50.218	00:E0:00:61:1C:B9
+158.75.50.(celowo usuniete recznie nie przez program)	256
+#################################
+Ostatnia linijka zawiera IP komputera, ktory przeprowadzal skany
+Oraz jakas liczbe, ktorej pochodzenie jest dla mnie tajemnica
+"""
+#TODO
+#przedstawienie danych z IPs+MACs w slowniku
+#cel: mozliwosc dodania jako argumentu danego klucza (ktory bedzie stringiem zawierajacym IP i MAC) 
+#Identyfikator nadany przez uzytkownika oprogramowania (nazwisko, numer itp)
+#Coraz mniej tego ;)
