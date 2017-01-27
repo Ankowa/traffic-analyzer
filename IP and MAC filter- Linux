@@ -1,4 +1,4 @@
-#wersja na Linuxa zawiera nieznaczące zmiany w 3 miejscach
+#wersja na Linuxa NIE zawiera zadnych zmian w pliku
 import os
 def prepare(text):
 	text=text.replace("(", "").replace(")", "")
@@ -10,7 +10,7 @@ in_lines=input_file.readlines()
 input_file.close()
 i=1
 for line in in_lines:
-	if(i>1 and i%3!=0):
+	if(i>2 and i%3!=1):
 		work_file.write(line)
 	i+=1
 i=1
