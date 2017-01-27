@@ -1,0 +1,11 @@
+import os
+comm1=os.popen("ifconfig")
+ifconfig=comm1.read()
+ip=ifconfig[72:81]      #proponuje tutaj wpisac wlasne 3 argumenty (bez kropki na koncu) adresu IP, gdyz dziala to tylko dla sieci
+#                       o adresie IP ***.***.*.0/24
+comm2=os.popen("nmap -sP "+ip+".0/24")
+scan_lines=comm2.readlines()
+output_file=open('scan.txt',"w")
+for line in scan_lines:
+	output_file.write(line)
+output_file.close()
