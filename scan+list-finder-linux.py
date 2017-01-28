@@ -5,10 +5,16 @@ def prepare(text):
 
 def prepare_ip(text):
 	if(text[len(text)-1]!="."):
-		text=text[:-1]
-		prepare_ip(text)
-	text=text[:-3]
-	return text
+		print text
+		text=text[:(len(text)-1)]
+	if(text[len(text)-1]!="."):
+		print text
+		text=text[:(len(text)-1)]
+	if(text[len(text)-1]!="."):
+		print text
+		text=text[:(len(text)-1)]	
+	return text[:-1]
+
 def find_ip_linux():
 	ifconfig=os.popen("ifconfig")
 	if_lines=ifconfig.readlines()
@@ -16,6 +22,7 @@ def find_ip_linux():
 	ip=words[1]
 	ip=prepare_ip(ip)
 	return ip
+
 def net_scan():
 	ip=find_ip_linux()
 	scan=os.popen("nmap -sP "+ip+".0/24")
@@ -24,6 +31,7 @@ def net_scan():
 	for line in scan_lines:
 		output_file.write(line)
 	output_file.close()
+
 def adress_list():
 	net_scan()
 	input_file=open('scan.txt',"r+")
@@ -50,4 +58,5 @@ def adress_list():
 		i+=1
 	output_file.close()
 	os.remove('roboczy.txt')
+
 adress_list()
