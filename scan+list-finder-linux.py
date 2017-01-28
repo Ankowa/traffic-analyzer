@@ -5,13 +5,10 @@ def prepare(text):
 
 def prepare_ip(text):
 	if(text[len(text)-1]!="."):
-		print text
 		text=text[:(len(text)-1)]
 	if(text[len(text)-1]!="."):
-		print text
 		text=text[:(len(text)-1)]
 	if(text[len(text)-1]!="."):
-		print text
 		text=text[:(len(text)-1)]	
 	return text[:-1]
 
